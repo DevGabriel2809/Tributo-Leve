@@ -1,0 +1,39 @@
+TRIBUTO LEVE v4.3.1 — HOTFIX DE PUBLICAÇÃO NETLIFY
+
+Problema corrigido
+------------------
+O publicador executava npm run build e, na sequência, netlify deploy --build.
+Isso fazia um segundo build durante o ciclo do deploy. No log de produção esse
+segundo ciclo chegou ao onPostBuild e falhou no upload com HTTP 422
+"no records matched".
+
+Fluxo novo
+----------
+1. npm ci
+2. npm run quality
+3. netlify build --context production
+4. npm run perf:budget
+5. netlify deploy --prod --no-build --dir=dist --functions=netlify/functions
+
+Por que netlify build --context production?
+-------------------------------------------
+As variáveis VITE_* precisam existir no momento do build do frontend. O comando
+netlify build resolve as variáveis do contexto Production sem gravar secrets no
+repositório.
+
+Por que --no-build no deploy?
+-----------------------------
+Porque o dist já foi gerado. Assim o deploy apenas envia os artefatos e Functions,
+sem executar novamente o ciclo de build/onPostBuild que causou o erro 422.
+
+Fallback
+--------
+Se a API de upload do Netlify retornar uma falha transitória na primeira tentativa,
+o script limpa somente .netlify/cache e tenta o mesmo deploy uma segunda vez.
+Nenhum banco, variável, arquivo-fonte ou configuração remota é apagado.
+
+Uso
+---
+Execute normalmente:
+
+  0_PUBLICAR_SITE.bat

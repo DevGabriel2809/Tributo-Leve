@@ -1,0 +1,39 @@
+TRIBUTO LEVE v4.2.0 - LEIA PRIMEIRO
+====================================
+
+DOMINIO OFICIAL
+https://tributoleve.com.br
+
+ORDEM CORRETA PARA QUEM JA ESTA NA v4.1.0
+------------------------------------------
+1) Faça backup do Supabase antes da migration.
+2) Execute: 8_ATUALIZAR_ASSINATURAS_CARTAO_4.2.0.bat
+3) No Supabase SQL Editor, rode TODO o arquivo APLICAR_4.2.0_COMPLETO.sql.
+4) Confirme que as verificações finais do SQL retornaram TRUE.
+5) Supabase Auth > URL Configuration:
+   Site URL = https://tributoleve.com.br
+   Adicione os redirects de produção necessários para tributoleve.com.br.
+6) Mercado Pago > sua aplicação > Webhooks:
+   URL = https://tributoleve.com.br/.netlify/functions/payment-webhook
+   Ative eventos de Order/Payments e assinaturas recorrentes.
+   Copie a chave secreta do webhook.
+7) Execute 0_PUBLICAR_SITE.bat.
+   Quando solicitado, informe as credenciais DE PRODUÇÃO.
+8) Execute 6_CONFIGURAR_DOMINIO_NETLIFY.bat ou adicione tributoleve.com.br no painel Netlify.
+9) Na GoDaddy, configure o DNS somente DEPOIS de o domínio existir no Netlify.
+10) Aguarde o HTTPS do Netlify e faça os smoke tests do guia.
+
+BANCO NOVO / INSTALACAO DO ZERO
+-------------------------------
+Execute as migrations em ordem 001, 002, 003, 004, 005, 006, 007 e 008.
+NÃO rode apenas o SQL 007: o 008 é o hardening de segurança obrigatório.
+
+IMPORTANTE
+----------
+- Cartão de PLANO = recorrência automática via /preapproval.
+- PIX/boleto de PLANO = renovação manual por período.
+- Cartão de MÓDULO = compra única via Orders API.
+- O frontend nunca decide preço, role, plano, entitlement ou autorização.
+- Não publique nenhuma Secret Key/Access Token em VITE_*.
+
+Guia completo: GUIA_DEPLOY_TRIBUTOLEVE_4.2.0.md

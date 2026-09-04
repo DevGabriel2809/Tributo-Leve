@@ -1,0 +1,18 @@
+TRIBUTO LEVE v4.2.3 - VALIDAÇÃO NESTE AMBIENTE
+================================================
+
+PASSOU
+- Motor tributário: node test-engine.js -> OK
+- Verificação estrutural React: node verify-project.js -> OK
+- Verificação de sintaxe TypeScript: nenhum erro sintático TS1005/1128/1109/1161/1381/17002/17008/2657 detectado
+- Backend de cancelamento existente preservado: POST subscription action=cancel cancela /preapproval no Mercado Pago e não remove o período já pago
+
+LIMITAÇÃO DESTE AMBIENTE
+- npm ci não concluiu por timeout de rede/registry neste container.
+- Por isso, o build completo deve ser validado pelo 0_PUBLICAR_SITE.bat na máquina do usuário, como nas publicações anteriores.
+
+ALTERAÇÕES CRÍTICAS REVISADAS
+- Pricing deixou de usar motion/whileInView nos cards.
+- Economia trimestral divide centavos por 100 antes da formatação BRL.
+- Cancelamento é confirmado na UI antes de chamar manageSubscription("cancel").
+- Nenhuma migration ou alteração de schema foi adicionada.

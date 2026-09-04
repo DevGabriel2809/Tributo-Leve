@@ -1,0 +1,21 @@
+TRIBUTO LEVE 4.1.0 - PLANOS PERIODICOS + DEMONSTRACAO
+
+NOVIDADES
+- Mantem o simbolo orbital original. A marca textual agora e Tributo Leve.
+- Demonstracao gratuita sem conta, acessivel na tela inicial.
+- Basico Mensal: 1 CNPJ + simulador completo.
+- Pro Mensal: ate 4 CNPJs + carteira compacta.
+- Pro Trimestral: 3 meses, ate 4 CNPJs + Relatorio Executivo incluido.
+- Modulo Carteira continua expandindo para ate 100 CNPJs.
+- Precos dos 3 planos continuam editaveis no Admin.
+- Planos expiram de acordo com a vigencia e podem ser renovados por PIX ou boleto.
+- Usuarios ativos podem trocar de plano em Planos e Modulos.
+
+ANTES DE PUBLICAR
+1. Execute 7_ATUALIZAR_PLANOS_4.1.0.bat.
+2. Rode todo o SQL aberto no Supabase.
+3. Confirme basico_ok, pro_mensal_ok, pro_trimestral_ok e limites_ok = true.
+4. Execute 0_PUBLICAR_SITE.bat.
+
+IMPORTANTE
+Os planos mensais/trimestral desta versao usam cobranca por periodo via PIX ou boleto. Nao ha debito automatico: ao vencer, o cliente gera a renovacao. Isso preserva a integracao atual via Mercado Pago Orders API.

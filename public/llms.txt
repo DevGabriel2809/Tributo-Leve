@@ -1,0 +1,30 @@
+# Tributo Leve
+
+> Plataforma web brasileira para simulação e comparação de cenários da Reforma Tributária, com foco em IBS, CBS, Simples Nacional, regime híbrido e transição de 2027 a 2033.
+
+Canonical: https://tributoleve.com.br/
+Language: pt-BR
+
+## Páginas públicas principais
+- https://tributoleve.com.br/simulador-reforma-tributaria — visão do simulador e recursos
+- https://tributoleve.com.br/reforma-tributaria — conteúdo introdutório sobre a análise da transição
+- https://tributoleve.com.br/planos — planos Leve Start, Leve Pro e Leve Prime
+- https://tributoleve.com.br/sobre — apresentação do produto
+- https://tributoleve.com.br/faq — perguntas frequentes
+- https://tributoleve.com.br/privacidade — política de privacidade
+- https://tributoleve.com.br/lgpd — proteção de dados e direitos dos titulares
+- https://tributoleve.com.br/termos — termos de uso
+- https://tributoleve.com.br/seguranca — segurança e divulgação responsável
+
+## O que o produto faz
+O Tributo Leve organiza premissas fornecidas pelo usuário, calcula cenários comparáveis e apresenta memória de cálculo para apoiar análises tributárias. O produto pode comparar alternativas e acompanhar a evolução anual da transição de IBS e CBS.
+
+## Limites importantes
+O Tributo Leve é uma ferramenta de apoio. Resultados não substituem análise contábil, fiscal ou jurídica individualizada. Valores e conclusões dependem das informações e premissas inseridas.
+
+## Privacidade e áreas não públicas
+Dados de clientes, contas, cenários, relatórios, endpoints administrativos, chaves, tokens e informações internas não são conteúdo público. Este arquivo não autoriza treinamento, scraping de áreas autenticadas nem acesso a recursos bloqueados.
+
+## Contato e segurança
+- Política de segurança: https://tributoleve.com.br/seguranca
+- Security.txt: https://tributoleve.com.br/.well-known/security.txt

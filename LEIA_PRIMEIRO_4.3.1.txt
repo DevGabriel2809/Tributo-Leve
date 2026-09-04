@@ -1,0 +1,27 @@
+TRIBUTO LEVE v4.3.1 — PATCH DE ROTAS, PRICING E MOBILE
+
+Este patch não exige nova migration SQL.
+
+Correções principais:
+- rotas públicas do Netlify funcionando em acesso direto e refresh;
+- /simulador redireciona para a URL canônica /simulador-reforma-tributaria;
+- /seguranca continua canônica e o atalho com acento é redirecionado;
+- descrições dos planos encurtadas nos cards;
+- cards de planos mais largos no cadastro desktop;
+- mobile sem scroll lateral branco;
+- área dos planos em touch sem transform/hover que interfira no gesto vertical;
+- botão Instalar abre somente o prompt nativo PWA e só aparece quando ele estiver disponível.
+
+PARA PUBLICAR
+1. Extraia o ZIP em uma pasta nova.
+2. Execute 11_VALIDAR_RELEASE_4.3.0.bat se quiser validar antes.
+3. Execute 0_PUBLICAR_SITE.bat.
+4. Não rode migrations 5, 7, 8, 9 ou 10 novamente apenas por causa deste patch.
+5. Após o deploy, teste diretamente:
+   https://tributoleve.com.br/sobre
+   https://tributoleve.com.br/planos
+   https://tributoleve.com.br/simulador
+   https://tributoleve.com.br/privacidade
+   https://tributoleve.com.br/seguranca
+
+No celular, faça um reload completo após o deploy para o service worker v4.3.1 substituir o cache anterior.

@@ -1,0 +1,44 @@
+{
+  "name": "tributo-leve",
+  "private": true,
+  "version": "4.3.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build && node scripts/generate-public-pages.mjs && node scripts/protect-build.mjs",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --pretty false",
+    "test:engine": "node test-engine.js",
+    "verify": "node verify-project.js",
+    "security:scan": "node scripts/check-secrets.mjs",
+    "quality": "npm run typecheck && npm run test:engine && npm run verify && npm run security:scan && npm run security:api && npm run seo:check",
+    "seo:check": "node scripts/seo-check.mjs",
+    "perf:budget": "node scripts/performance-budget.mjs",
+    "security:api": "node scripts/api-security-audit.mjs"
+  },
+  "dependencies": {
+    "@netlify/functions": "^6.0.0",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-tooltip": "^1.2.8",
+    "@supabase/supabase-js": "^2.115.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.3"
+  }
+}

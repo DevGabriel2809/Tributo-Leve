@@ -1,0 +1,18 @@
+TRIBUTO LEVE 4.1.0 - VALIDACAO
+
+OK - TypeScript: npm run typecheck
+OK - Motor tributario: node test-engine.js
+OK - Verificador React/projeto: node verify-project.js
+OK - 13 grupos de campos rotulados
+OK - Sintaxe TS/TSX/MTS analisada
+OK - Marca orbital preservada em SVG
+OK - Planos: Basico Mensal / Pro Mensal / Pro Trimestral
+OK - CNPJ: 1 / 4 / 4 conforme plano, com Carteira expandindo para 100
+OK - Relatorio Executivo incluido no Pro Trimestral
+OK - Demonstracao gratuita sem conta e sem persistencia
+OK - Troca de plano dentro da area Planos e Modulos
+OK - Vigencia de 1 ou 3 meses aplicada apos confirmacao do Mercado Pago
+OK - Renovacao por PIX ou boleto usando Orders API existente
+
+OBSERVACAO DE BUILD
+O bundle Vite nao foi concluido neste Linux porque o node_modules usado para validar TypeScript veio do ambiente Windows e nao contem @rollup/rollup-linux-x64-gnu. O publicador do Windows executa npm install antes do build e instala o binario correto para o ambiente.

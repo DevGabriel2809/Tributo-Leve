@@ -1,0 +1,7 @@
+# Tributo Leve — política de rastreamento
+User-agent: *
+Allow: /
+Disallow: /.netlify/
+Disallow: /*?demo=
+
+Sitemap: https://tributoleve.com.br/sitemap.xml

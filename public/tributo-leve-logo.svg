@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 120" role="img" aria-labelledby="title desc">
+  <title id="title">Tributo Leve</title>
+  <desc id="desc">Símbolo orbital verde-claro e assinatura Tributo Leve.</desc>
+  <rect x="8" y="8" width="104" height="104" rx="28" fill="#c9ffc1"/>
+  <g transform="translate(24 24) scale(3)" fill="none" stroke="#101310" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.341 6.484A10 10 0 0 1 10.266 21.85"/>
+    <path d="M3.659 17.516A10 10 0 0 1 13.74 2.152"/>
+    <circle cx="12" cy="12" r="3"/>
+    <circle cx="19" cy="5" r="2"/>
+    <circle cx="5" cy="19" r="2"/>
+  </g>
+  <text x="136" y="61" fill="#101310" font-family="Roboto Slab, Georgia, serif" font-size="42" font-weight="800">Tributo</text>
+  <text x="139" y="88" fill="#101310" font-family="Roboto Slab, Georgia, serif" font-size="17" font-weight="800" letter-spacing="6">LEVE</text>
+</svg>

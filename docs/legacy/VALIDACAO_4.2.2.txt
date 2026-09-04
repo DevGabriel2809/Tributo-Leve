@@ -1,0 +1,19 @@
+TRIBUTO LEVE 4.2.2 — VALIDAÇÃO DO PATCH
+
+OK  Motor tributário: node test-engine.js
+OK  Verificador estrutural React: node verify-project.js
+OK  Sintaxe TS/TSX/Netlify Functions: TypeScript transpileModule
+OK  Manrope configurada como família principal e única fonte editorial/interface
+OK  Pricing sem scale/perspective persistente
+OK  Hover premium limitado a dispositivos hover:hover + pointer:fine
+OK  Touch/mobile sem transform de cards e com touch-action pan-y
+OK  Leve Prime posicionado no centro no desktop e primeiro no mobile
+OK  Destaque de economia ampliado
+OK  Descrições detalhadas usam o banco quando a migration revisada 009 estiver aplicada e têm fallback detalhado no frontend
+OK  Demo limitada a Perfil + Apuração no simulador, comparação principal e página de planos
+OK  Demo sem Assistente, Base técnica, Transição, Cenários, Carteira, Relatório, Equipe, memória de cálculo e detalhes avançados da comparação
+OK  Service worker incrementado para tributo-leve-v4.2.2
+
+AMBIENTE
+O npm ci desta sessão não concluiu por indisponibilidade/timeout do registry no ambiente de execução.
+Na máquina de produção, 0_PUBLICAR_SITE.bat executa npm ci + build antes do deploy e deve ser a validação final.

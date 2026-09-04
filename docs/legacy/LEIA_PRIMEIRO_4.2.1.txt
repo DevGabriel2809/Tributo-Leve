@@ -1,0 +1,29 @@
+TRIBUTO LEVE v4.2.1 — PLANOS PREMIUM + SIDEBAR RETRÁTIL
+=========================================================
+
+Esta atualização é um patch visual/comercial sobre a v4.2.0.
+Não altera slugs de plano, preços, contratos recorrentes ou endpoints de pagamento.
+
+O QUE MUDOU
+- Nova experiência de preços inspirada no componente Pricing solicitado.
+- Leve Start: plano mensal de entrada, 1 CNPJ.
+- Leve Pro: plano mensal, até 4 CNPJs.
+- Leve Prime: plano trimestral, recomendado, até 4 CNPJs + Relatório Executivo.
+- Leve Prime é destacado como MELHOR ESCOLHA e mostra economia em relação a 3 meses do Leve Pro.
+- Tela de cadastro ganhou cards de preços maiores e muito mais claros.
+- Área interna Planos e módulos foi repaginada e agora mostra o plano atual.
+- Sidebar desktop agora é retrátil e guarda a preferência no navegador.
+- Navegação lateral possui scroll próprio para contas Admin com todos os módulos liberados.
+- Mobile mantém menu lateral expansível normal.
+
+PARA ATUALIZAR UMA INSTALAÇÃO 4.2.0 EXISTENTE
+1) Execute 9_ATUALIZAR_IDENTIDADE_PLANOS_4.2.1.bat.
+2) Copie todo o SQL aberto para Supabase > SQL Editor e clique em Run.
+3) Confirme os três resultados TRUE:
+   leve_start_ok
+   leve_pro_ok
+   leve_prime_recomendado_ok
+4) Execute 0_PUBLICAR_SITE.bat.
+
+O SQL 009 altera somente nome, descrição, badge, recomendado e ordem comercial.
+Nenhuma assinatura, preço, usuário, pagamento ou slug é apagado/modificado.

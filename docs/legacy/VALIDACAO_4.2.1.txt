@@ -1,0 +1,18 @@
+TRIBUTO LEVE 4.2.1 — RESULTADO DE VALIDAÇÃO DESTA REVISÃO
+==========================================================
+
+OK  Motor tributário: node test-engine.js
+OK  Verificação estrutural React: node verify-project.js
+OK  Pricing compartilhado criado em src/components/ui/pricing.tsx
+OK  Branding central dos planos em src/lib/planBranding.ts
+OK  Leve Prime marcado como recomendado sem alterar slug pro-trimestral
+OK  Sidebar retrátil + persistência local + scroll próprio
+OK  Área interna de planos repaginada
+OK  Tela de cadastro repaginada
+OK  Migration 009 criada para manter nomes comerciais coerentes no Supabase
+OK  Cache do service worker incrementado para tributo-leve-v4.2.1
+
+OBSERVAÇÃO DO AMBIENTE DE EMPACOTAMENTO
+O npm ci deste ambiente não concluiu por indisponibilidade do registry e o ZIP não inclui node_modules.
+Por isso o typecheck/build completo deve ser executado pelo 0_PUBLICAR_SITE.bat na sua máquina,
+que já foi validada anteriormente pelo usuário para instalação das dependências e build.

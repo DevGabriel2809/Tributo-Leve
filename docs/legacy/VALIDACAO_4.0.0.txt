@@ -1,0 +1,16 @@
+TRIBUTO LEVE 4.0.0 - VALIDACAO LOCAL
+=======================================
+
+VALIDADO NESTE PACOTE:
+- TypeScript do aplicativo: OK (tsc -b)
+- TypeScript das Netlify Functions: OK
+- Validador React do projeto: OK (13 grupos de campos rotulados)
+- Cenarios do motor tributario: OK
+- Servidor HTTP local / index / data.json: OK
+- JSON de package/manifest: OK
+- Referencias de assets publicos: OK
+- Busca pela marca e dominios anteriores em arquivos texto: 0 ocorrencias
+- Scan de credenciais privadas gravadas no pacote: nenhuma credencial encontrada
+
+OBSERVACAO:
+O bundle Vite nativo nao foi executado no ambiente Linux porque o node_modules de referencia disponivel foi instalado no Windows. O publicador do projeto executa npm install no Windows antes do build e interrompe automaticamente se a compilacao falhar.

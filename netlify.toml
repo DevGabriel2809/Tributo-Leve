@@ -1,0 +1,127 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), usb=(), interest-cohort=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://sdk.mercadopago.com https://challenges.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.mercadopago.com https://*.mercadopago.com.br https://www.google-analytics.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.mercadopago.com https://*.mercadopago.com https://*.mercadopago.com.br https://challenges.cloudflare.com https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; frame-src https://*.mercadopago.com https://*.mercadopago.com.br https://challenges.cloudflare.com; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "text/plain; charset=utf-8"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "application/xml; charset=utf-8"
+
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "text/plain; charset=utf-8"
+
+[[headers]]
+  for = "/.well-known/security.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "text/plain; charset=utf-8"
+
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Cache-Control = "no-store, max-age=0"
+    X-Robots-Tag = "noindex, nofollow, nosnippet"
+
+# Rotas públicas pré-geradas. As regras explícitas garantem acesso direto e refresh
+# no Netlify sem transformar páginas válidas em 404 de SPA.
+[[redirects]]
+  from = "/sobre"
+  to = "/sobre/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/planos"
+  to = "/planos/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/simulador-reforma-tributaria"
+  to = "/simulador-reforma-tributaria/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/reforma-tributaria"
+  to = "/reforma-tributaria/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/faq"
+  to = "/faq/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacidade"
+  to = "/privacidade/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/lgpd"
+  to = "/lgpd/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/termos"
+  to = "/termos/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/seguranca"
+  to = "/seguranca/index.html"
+  status = 200
+
+# Atalhos amigáveis mantêm uma URL canônica para SEO.
+[[redirects]]
+  from = "/simulador"
+  to = "/simulador-reforma-tributaria"
+  status = 301
+
+[[redirects]]
+  from = "/segurança"
+  to = "/seguranca"
+  status = 301
+
+[[redirects]]
+  from = "/seguran%C3%A7a"
+  to = "/seguranca"
+  status = 301
+
+# URLs realmente inexistentes recebem status HTTP 404 e a página React própria.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404

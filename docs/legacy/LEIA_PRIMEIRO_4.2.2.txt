@@ -1,0 +1,24 @@
+TRIBUTO LEVE v4.2.2 — TIPOGRAFIA, PRICING MOBILE E DEMO ENXUTA
+
+ALTERAÇÕES
+- Manrope passa a ser a fonte principal de toda a interface.
+- Pricing sem scale/perspective persistente: elimina o aspecto borrado dos textos.
+- Hover de desktop redesenhado com elevação, iluminação e borda, sem interferir no touch.
+- Mobile reorganizado: Leve Prime primeiro, cards em fluxo vertical e sem hover/transform em telas touch.
+- Destaque de economia do Leve Prime maior e mais legível.
+- Descrições do banco passam a ser usadas diretamente nos cards quando disponíveis.
+- Demonstração gratuita reduzida para Perfil + Apuração no Simulador, comparação principal e Planos e módulos.
+- Na demo, Créditos, Ajustes, Assistente, Base técnica, Transição, Cenários, Carteira, Relatório, Equipe, memória de cálculo e detalhes avançados da comparação não ficam disponíveis.
+- Impressão/relatório também não é liberado na demonstração.
+
+BANCO DE DADOS
+Nenhuma migration estrutural nova é necessária.
+Se você já executou a versão revisada da migration 009, não execute novamente por causa deste patch.
+
+PUBLICAÇÃO
+Execute apenas:
+  0_PUBLICAR_SITE.bat
+
+OBSERVAÇÃO SOBRE MANROPE
+O arquivo enviado foi usado para confirmar a família Manrope. O projeto carrega a mesma família via Google Fonts,
+sem incorporar binários de fonte ao pacote.

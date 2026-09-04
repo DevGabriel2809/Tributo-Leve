@@ -1,0 +1,14 @@
+TRIBUTO LEVE v4.3.0 — PRODUÇÃO
+
+Atualização focada em SEO, LGPD, Analytics, antiabuso, presença online no Admin,
+página 404, documentação e preparação segura para GitHub.
+
+SE VOCÊ JÁ ESTÁ NA v4.2.3:
+1. Execute 10_ATUALIZAR_SEGURANCA_PRESENCA_4.3.0.bat e rode o SQL no Supabase.
+2. Configure opcionalmente GA4, Search Console, Turnstile e dados públicos do rodapé.
+3. Execute 0_PUBLICAR_SITE.bat.
+4. Valide cadastro/login/pagamentos e rode 12_TESTAR_PAGESPEED.bat.
+
+Não execute migrations antigas novamente se elas já foram aplicadas.
+Nunca coloque SUPABASE_SECRET_KEY, Access Token do Mercado Pago, segredo de webhook
+ou Secret Key do Turnstile em VITE_*, NEXT_PUBLIC_* ou no GitHub.

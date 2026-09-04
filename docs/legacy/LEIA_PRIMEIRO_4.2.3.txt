@@ -1,0 +1,33 @@
+TRIBUTO LEVE v4.2.3
+====================
+
+Patch de UX dos planos e assinatura.
+
+ALTERAÇÕES
+- Área interna de planos simplificada: removidas legendas e cabeçalhos repetidos.
+- Títulos menores e com peso visual mais leve.
+- Cards sem animação vinculada ao scroll/viewport.
+- Hover de desktop mais discreto e sem interferir no mobile.
+- Mobile com cards estáticos, fluxo vertical e touch/scroll natural.
+- Economia do Leve Prime movida para dentro do próprio card.
+- Correção do cálculo visual da economia: centavos agora são convertidos corretamente para reais.
+- Tela de cadastro com pricing sem Framer Motion nos cards.
+- Minha assinatura com ação explícita "Cancelar assinatura" e confirmação própria.
+- Cancelamento encerra novas cobranças automáticas, preservando o acesso até o fim do período pago.
+- Cache do PWA atualizado para v4.2.3.
+
+BANCO DE DADOS
+Nenhuma migration nova é necessária nesta versão.
+Não execute novamente as migrations 5, 7, 8 ou 9 se elas já foram aplicadas.
+
+PUBLICAÇÃO
+1. Extraia o ZIP.
+2. Execute 0_PUBLICAR_SITE.bat.
+3. Aguarde npm ci, typecheck/build e deploy --prod.
+4. Faça hard refresh no navegador ou feche/reabra o PWA para renovar o cache.
+
+TESTE RECOMENDADO APÓS PUBLICAÇÃO
+- Cadastro no desktop e celular: rolar a página até o fim e selecionar cada plano.
+- Planos e módulos: conferir que não há cabeçalhos repetidos.
+- Leve Prime: conferir valor de economia em reais (ex.: R$ 30,00, não R$ 3.000,00, conforme preços atuais).
+- Minha assinatura: testar o fluxo de confirmação do cancelamento com uma assinatura de teste.

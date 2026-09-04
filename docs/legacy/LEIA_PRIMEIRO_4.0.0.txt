@@ -1,0 +1,32 @@
+TRIBUTO LEVE 4.0.0
+==================
+
+Esta versao troca integralmente a identidade comercial e o endereco publico do produto para:
+https://tributoleve.com.br
+
+ORDEM RECOMENDADA PARA A PRIMEIRA PUBLICACAO 4.0.0
+
+1) Execute 5_ATUALIZAR_MARCA_TRIBUTO_LEVE.bat
+   - rode a migration 005 no Supabase;
+   - ela preserva usuarios, pagamentos, precos, cenarios e modulos.
+
+2) Execute 6_CONFIGURAR_DOMINIO_NETLIFY.bat
+   - tenta renomear o projeto Netlify para tributoleve;
+   - adiciona tributoleve.com.br e www.tributoleve.com.br;
+   - atualiza APP_URL e VITE_APP_URL.
+
+3) Na GoDaddy, configure o DNS conforme CHECKLIST_DOMINIO_E_INTEGRACOES.md.
+
+4) No Supabase, troque a Site URL e os Redirect URLs para o novo dominio.
+
+5) No Mercado Pago, renomeie a aplicacao para Tributo Leve e troque o Webhook de producao para:
+   https://tributoleve.com.br/.netlify/functions/payment-webhook
+
+6) Execute 0_PUBLICAR_SITE.bat
+
+7) Teste cadastro, login, PIX, boleto, webhook, modulos, convites, relatorio e instalacao PWA.
+
+IMPORTANTE
+- O banco Supabase existente e mantido para nao perder clientes nem historico.
+- As chaves privadas nao sao gravadas no projeto.
+- Se o Mercado Pago gerar uma nova assinatura secreta ao salvar o webhook, atualize MERCADO_PAGO_WEBHOOK_SECRET na Netlify antes do deploy final.
