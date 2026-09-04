@@ -23,6 +23,8 @@ jobs:
           echo "2ecd6a863dc8c8d8340335171b9b34690039b308c6a954fa298e5231e00a8afc  /tmp/v441.patch.xz" | sha256sum -c -
           xz -dc /tmp/v441.patch.xz > /tmp/v441.patch
           patch -p5 --batch < /tmp/v441.patch
+          cp .ci-v441-code/verify-http-production.py verify-http.py
+          echo "2bdecb441bc9bb030e63d4cb93088649c5f8d9d1e045b79687d0549862dfb912  verify-http.py" | sha256sum -c -
           node -e "const p=require('./package.json'); if(p.version!=='4.4.1') process.exit(1); console.log('Candidate version:',p.version)"
 
       - uses: actions/setup-node@v4
