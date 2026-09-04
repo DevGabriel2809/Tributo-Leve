@@ -1,0 +1,50 @@
+name: Tributo Leve v4.4.1 Release Validation
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-v441:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct audited v4.4.1 candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .ci-v441-code/part_* > /tmp/v441.patch.xz.b64
+          echo "b7ef5724e56c688f2b870fef0a21d633f1373d7d4bfa60cfb3f4396d189be4fc  /tmp/v441.patch.xz.b64" | sha256sum -c -
+          base64 -d /tmp/v441.patch.xz.b64 > /tmp/v441.patch.xz
+          echo "2ecd6a863dc8c8d8340335171b9b34690039b308c6a954fa298e5231e00a8afc  /tmp/v441.patch.xz" | sha256sum -c -
+          xz -dc /tmp/v441.patch.xz > /tmp/v441.patch
+          patch -p5 --batch < /tmp/v441.patch
+          node -e "const p=require('./package.json'); if(p.version!=='4.4.1') process.exit(1); console.log('Candidate version:',p.version)"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Clean dependency install
+        run: npm ci
+
+      - name: Full quality gate
+        run: npm run quality
+
+      - name: Production Vite build
+        run: npm run build
+
+      - name: Performance budget
+        run: npm run perf:budget
+
+      - name: Preserve compiled output
+        uses: actions/upload-artifact@v4
+        with:
+          name: tributo-leve-v4.4.1-dist
+          path: dist
+          if-no-files-found: error
