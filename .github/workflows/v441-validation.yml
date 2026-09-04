@@ -33,11 +33,17 @@ jobs:
       - name: Clean dependency install
         run: npm ci
 
+      - name: Production dependency audit
+        run: npm audit --omit=dev --audit-level=high
+
       - name: Full quality gate
         run: npm run quality
 
       - name: Production Vite build
         run: npm run build
+
+      - name: Production HTTP smoke
+        run: python verify-http.py
 
       - name: Performance budget
         run: npm run perf:budget
