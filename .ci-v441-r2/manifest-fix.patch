@@ -1,0 +1,25 @@
+diff --git a/scripts/release-audit.mjs b/scripts/release-audit.mjs
+index 1b49b1f..71b2da2 100644
+--- a/scripts/release-audit.mjs
++++ b/scripts/release-audit.mjs
+@@ -73,6 +73,7 @@ check(sitemap.includes('/contadores'), 'sitemap inclui /contadores')
+ check(netlify.includes('/contadores'), 'roteamento/SEO inclui /contadores')
+ check(publisher.includes('deploy --prod --no-build') && publisher.includes('netlify-cli@latest build --context production'), 'hotfix Netlify 422 preservado')
+ check(verifyHttp.includes('dist / \"index.html\"') && verifyHttp.includes('/assets/') && verifyHttp.includes('/contadores/index.html') && verifyHttp.includes('/src/main.tsx'), 'smoke HTTP usa o dist compilado e rejeita HTML de desenvolvimento')
++check(verifyHttp.includes('/site.webmanifest') && !verifyHttp.includes('/manifest.webmanifest'), 'smoke HTTP valida o manifest PWA pelo nome publicado')
+ 
+ const legacyFiles = ['src/App.tsx','src/components/PublicPages.tsx','src/lib/planBranding.ts','src/components/ui/modern-stunning-sign-in.tsx','netlify/functions/workspace.mts','scripts/generate-public-pages.mjs']
+ const legacy = legacyFiles.flatMap((file) => {
+diff --git a/verify-http.py b/verify-http.py
+index 4ba0637..ea86d43 100644
+--- a/verify-http.py
++++ b/verify-http.py
+@@ -41,7 +41,7 @@ try:
+             payload = response.read()
+             assert response.status == 200 and payload, f"asset inválido: {asset}"
+ 
+-    for static_file in ["/robots.txt", "/sitemap.xml", "/sw.js", "/manifest.webmanifest"]:
++    for static_file in ["/robots.txt", "/sitemap.xml", "/sw.js", "/site.webmanifest"]:
+         with urlopen(f"http://127.0.0.1:{port}{static_file}", timeout=5) as response:
+             assert response.status == 200 and len(response.read()) > 20, static_file
+ 
