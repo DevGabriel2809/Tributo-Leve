@@ -1,4 +1,4 @@
-name: Tributo Leve v4.4.1 R2 Release Validation
+name: Tributo Leve v4.4.2 Admin Release Validation
 
 on:
   pull_request:
@@ -8,9 +8,9 @@ permissions:
   contents: read
 
 jobs:
-  validate-v441-r2:
+  validate-v442-admin:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     env:
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       NETLIFY_SITE_ID: 6d5c2fe4-d765-4d88-967c-5d2d1b695fa1
@@ -41,10 +41,6 @@ jobs:
           xz -dc /tmp/v441-r2.patch.xz > /tmp/v441-r2.patch
           echo "7be0ac07efa4a7e96d5d0e4abfef4ecb1949865fd40540307451525768b960ab  /tmp/v441-r2.patch" | sha256sum -c -
 
-          # The local v4.3.1 checkpoint used to create the patch differs from
-          # GitHub main in exactly two non-runtime artifacts. Apply every other
-          # candidate change normally, then reproduce those two final files
-          # deterministically and verify their exact release hash/state.
           git apply --check --exclude=PUBLICAR_NETLIFY.bat --exclude=vite.config.d.ts /tmp/v441-r2.patch
           git apply --exclude=PUBLICAR_NETLIFY.bat --exclude=vite.config.d.ts /tmp/v441-r2.patch
 
@@ -66,15 +62,34 @@ jobs:
           echo "f87b7d887162da4d8fca647d6f23ff43eabecd5e5af8fb7c789467478f0d4b0e  PUBLICAR_NETLIFY.bat" | sha256sum -c -
           rm -f vite.config.d.ts
 
-          # Follow-up discovered by the second independent audit: the build
-          # publishes site.webmanifest; the smoke must validate that exact file.
           echo "969ea6d7829f622ecebff962783a61cbd2b44502456ae356599fbc034ffb203f  .ci-v441-r2/manifest-fix.patch" | sha256sum -c -
           git apply --check .ci-v441-r2/manifest-fix.patch
           git apply .ci-v441-r2/manifest-fix.patch
           echo "340a55e219926692937253d3e6be93071001ada104190606663d384141b0bfc8  verify-http.py" | sha256sum -c -
           echo "c261d8638f7437877f07ae3d0f250875443f9565a509216579191ad233087e71  scripts/release-audit.mjs" | sha256sum -c -
 
-          test "$(node -p "require('./package.json').version")" = "4.4.1"
+      - name: Apply exact v4.4.2 Admin delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .ci-v442/seg_* > /tmp/v442-admin.patch.xz.b64
+          test "$(wc -c < /tmp/v442-admin.patch.xz.b64)" -eq 24636
+          echo "2297c11564ba2d6c3d8d148882966b65b5812147647a09d97d9949a585c5b722  /tmp/v442-admin.patch.xz.b64" | sha256sum -c -
+          base64 -d /tmp/v442-admin.patch.xz.b64 > /tmp/v442-admin.patch.xz
+          test "$(wc -c < /tmp/v442-admin.patch.xz)" -eq 18476
+          echo "88708222999ef71cb24b5ce71f0e7143a13df1b51371dcc01806bbc7ec9a790b  /tmp/v442-admin.patch.xz" | sha256sum -c -
+          xz -dc /tmp/v442-admin.patch.xz > /tmp/v442-admin.patch
+          test "$(wc -c < /tmp/v442-admin.patch)" -eq 82752
+          echo "1bc2f86d53cb41dabcf3bb100d88ce9181186ccb133078ef5a734a5d60b5ece9  /tmp/v442-admin.patch" | sha256sum -c -
+          git apply --check /tmp/v442-admin.patch
+          git apply /tmp/v442-admin.patch
+
+          test "$(node -p "require('./package.json').version")" = "4.4.2"
+          test -f supabase/migrations/012_admin_gestao_total_4.4.2.sql
+          grep -q "admin_change_user_plan" supabase/migrations/012_admin_gestao_total_4.4.2.sql
+          grep -q "admin_replace_cpf" supabase/migrations/012_admin_gestao_total_4.4.2.sql
+          grep -q "admin_set_user_role" supabase/migrations/012_admin_gestao_total_4.4.2.sql
+          grep -q "tributo-leve-admin-role-management" supabase/migrations/012_admin_gestao_total_4.4.2.sql
           test ! -e vite.config.js
           test ! -e vite.config.d.ts
           test ! -e .ci-v441-local
@@ -116,6 +131,6 @@ jobs:
       - name: Preserve compiled output
         uses: actions/upload-artifact@v4
         with:
-          name: tributo-leve-v4.4.1-r2-dist
+          name: tributo-leve-v4.4.2-admin-dist
           path: dist
           if-no-files-found: error
