@@ -11,6 +11,9 @@ jobs:
   validate-v441-r2:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: 6d5c2fe4-d765-4d88-967c-5d2d1b695fa1
     steps:
       - uses: actions/checkout@v4
 
@@ -101,8 +104,11 @@ jobs:
       - name: Performance budget
         run: npm run perf:budget
 
+      - name: Link Netlify project
+        run: npx --yes netlify-cli@27.3.0 link --id "$NETLIFY_SITE_ID"
+
       - name: Netlify production build
-        run: npx --yes netlify-cli@27.3.0 build
+        run: npx --yes netlify-cli@27.3.0 build --context production
 
       - name: Smoke after Netlify build
         run: python verify-http.py
