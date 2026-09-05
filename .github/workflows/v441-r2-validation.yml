@@ -37,8 +37,32 @@ jobs:
           echo "12569ea9980114759349a41f503ec14df0347c1f0311ad9d4b41ff5ab9b28d9e  /tmp/v441-r2.patch.xz" | sha256sum -c -
           xz -dc /tmp/v441-r2.patch.xz > /tmp/v441-r2.patch
           echo "7be0ac07efa4a7e96d5d0e4abfef4ecb1949865fd40540307451525768b960ab  /tmp/v441-r2.patch" | sha256sum -c -
-          git apply --check /tmp/v441-r2.patch
-          git apply /tmp/v441-r2.patch
+
+          # The local v4.3.1 checkpoint used to create the patch differs from
+          # GitHub main in exactly two non-runtime artifacts. Apply every other
+          # candidate change normally, then reproduce those two final files
+          # deterministically and verify their exact release hash/state.
+          git apply --check --exclude=PUBLICAR_NETLIFY.bat --exclude=vite.config.d.ts /tmp/v441-r2.patch
+          git apply --exclude=PUBLICAR_NETLIFY.bat --exclude=vite.config.d.ts /tmp/v441-r2.patch
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('PUBLICAR_NETLIFY.bat')
+          s = p.read_text(encoding='utf-8')
+          pairs = [
+              ('title Tributo Leve - Publicar no Netlify', 'title Tributo Leve 4.4.1 - Publicar no Netlify'),
+              ('Tributo Leve v4.3.1 - hotfix deploy Netlify 422 retry', 'Tributo Leve v4.4.1 Final - deploy Netlify 422 retry'),
+              ('Tributo Leve v4.3.1 - hotfix deploy Netlify 422', 'Tributo Leve v4.4.1 Final - deploy Netlify 422'),
+          ]
+          for old, new in pairs:
+              if old not in s:
+                  raise SystemExit(f'Expected PUBLICAR_NETLIFY marker not found: {old}')
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8', newline='\n')
+          PY
+          echo "f87b7d887162da4d8fca647d6f23ff43eabecd5e5af8fb7c789467478f0d4b0e  PUBLICAR_NETLIFY.bat" | sha256sum -c -
+          rm -f vite.config.d.ts
+
           test "$(node -p "require('./package.json').version")" = "4.4.1"
           test ! -e vite.config.js
           test ! -e vite.config.d.ts
