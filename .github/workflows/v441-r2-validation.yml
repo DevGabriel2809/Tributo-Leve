@@ -63,6 +63,14 @@ jobs:
           echo "f87b7d887162da4d8fca647d6f23ff43eabecd5e5af8fb7c789467478f0d4b0e  PUBLICAR_NETLIFY.bat" | sha256sum -c -
           rm -f vite.config.d.ts
 
+          # Follow-up discovered by the second independent audit: the build
+          # publishes site.webmanifest; the smoke must validate that exact file.
+          echo "969ea6d7829f622ecebff962783a61cbd2b44502456ae356599fbc034ffb203f  .ci-v441-r2/manifest-fix.patch" | sha256sum -c -
+          git apply --check .ci-v441-r2/manifest-fix.patch
+          git apply .ci-v441-r2/manifest-fix.patch
+          echo "340a55e219926692937253d3e6be93071001ada104190606663d384141b0bfc8  verify-http.py" | sha256sum -c -
+          echo "c261d8638f7437877f07ae3d0f250875443f9565a509216579191ad233087e71  scripts/release-audit.mjs" | sha256sum -c -
+
           test "$(node -p "require('./package.json').version")" = "4.4.1"
           test ! -e vite.config.js
           test ! -e vite.config.d.ts
