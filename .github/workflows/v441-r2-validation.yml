@@ -72,6 +72,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          # Existing-file delta.
           cat .ci-v442/seg_* > /tmp/v442-admin.patch.xz.b64
           test "$(wc -c < /tmp/v442-admin.patch.xz.b64)" -eq 24636
           echo "2297c11564ba2d6c3d8d148882966b65b5812147647a09d97d9949a585c5b722  /tmp/v442-admin.patch.xz.b64" | sha256sum -c -
@@ -83,6 +85,19 @@ jobs:
           echo "1bc2f86d53cb41dabcf3bb100d88ce9181186ccb133078ef5a734a5d60b5ece9  /tmp/v442-admin.patch" | sha256sum -c -
           git apply --check /tmp/v442-admin.patch
           git apply /tmp/v442-admin.patch
+
+          # New-file delta. Kept separately so untracked source files cannot be silently omitted.
+          cat .ci-v442-new/seg_* > /tmp/v442-newfiles.patch.xz.b64
+          test "$(wc -c < /tmp/v442-newfiles.patch.xz.b64)" -eq 5596
+          echo "238adf7015e2f03c975d6aacdec73d1896853a4ac2f3f9323f21bf5468377a2a  /tmp/v442-newfiles.patch.xz.b64" | sha256sum -c -
+          base64 -d /tmp/v442-newfiles.patch.xz.b64 > /tmp/v442-newfiles.patch.xz
+          test "$(wc -c < /tmp/v442-newfiles.patch.xz)" -eq 4196
+          echo "813121c0542d8da71a719a82caefa1fcc9f2865b922e4a95f20c419a5c673f97  /tmp/v442-newfiles.patch.xz" | sha256sum -c -
+          xz -dc /tmp/v442-newfiles.patch.xz > /tmp/v442-newfiles.patch
+          test "$(wc -c < /tmp/v442-newfiles.patch)" -eq 17644
+          echo "7c87bc559df1f7f085b85835cb5cfa2cc5435e648faa9384c405a404c8b87ba4  /tmp/v442-newfiles.patch" | sha256sum -c -
+          git apply --check /tmp/v442-newfiles.patch
+          git apply /tmp/v442-newfiles.patch
 
           test "$(node -p "require('./package.json').version")" = "4.4.2"
           test -f supabase/migrations/012_admin_gestao_total_4.4.2.sql
