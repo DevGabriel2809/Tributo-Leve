@@ -18,7 +18,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat .ci-v441-r2/part_* > /tmp/v441-r2.patch.xz.b64
+          cat \
+            .ci-v441-r2/part_00 \
+            .ci-v441-r2/part_01 \
+            .ci-v441-r2/p02/seg_* \
+            .ci-v441-r2/part_03 \
+            .ci-v441-r2/part_04 \
+            .ci-v441-r2/part_05 \
+            .ci-v441-r2/part_06 \
+            .ci-v441-r2/part_07 \
+            .ci-v441-r2/part_08 \
+            .ci-v441-r2/part_09 \
+            > /tmp/v441-r2.patch.xz.b64
           test "$(wc -c < /tmp/v441-r2.patch.xz.b64)" -eq 74824
           echo "346df010314eaf3bb736f00fa4855639ada17e19763a9a3515d966fd235800c8  /tmp/v441-r2.patch.xz.b64" | sha256sum -c -
           base64 -d /tmp/v441-r2.patch.xz.b64 > /tmp/v441-r2.patch.xz
