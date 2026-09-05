@@ -1,0 +1,66 @@
+name: Tributo Leve v4.4.1 R2 Release Validation
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-v441-r2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct exact audited R2 candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "12569ea9980114759349a41f503ec14df0347c1f0311ad9d4b41ff5ab9b28d9e  .ci-v441-r2/candidate.patch.xz" | sha256sum -c -
+          xz -dc .ci-v441-r2/candidate.patch.xz > /tmp/v441-r2.patch
+          echo "7be0ac07efa4a7e96d5d0e4abfef4ecb1949865fd40540307451525768b960ab  /tmp/v441-r2.patch" | sha256sum -c -
+          git apply --check /tmp/v441-r2.patch
+          git apply /tmp/v441-r2.patch
+          test "$(node -p "require('./package.json').version")" = "4.4.1"
+          test ! -e vite.config.js
+          test ! -e vite.config.d.ts
+          test ! -e .ci-v441-local
+          test ! -d __pycache__
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Clean dependency install
+        run: npm ci
+
+      - name: Production dependency audit
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Full quality gate
+        run: npm run quality
+
+      - name: Production Vite build
+        run: npm run build
+
+      - name: Production HTTP smoke
+        run: python verify-http.py
+
+      - name: Performance budget
+        run: npm run perf:budget
+
+      - name: Netlify production build
+        run: npx --yes netlify-cli@27.3.0 build --context production
+
+      - name: Smoke after Netlify build
+        run: python verify-http.py
+
+      - name: Preserve compiled output
+        uses: actions/upload-artifact@v4
+        with:
+          name: tributo-leve-v4.4.1-r2-dist
+          path: dist
+          if-no-files-found: error
